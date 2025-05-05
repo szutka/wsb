@@ -61,19 +61,23 @@ def search():
         data = fetcher.pobierzZdjecia(query)
         results = fetcher.showResults(data)
 
-        output_list.delete(1.0, "end")  #usuwa poprzednie wyniki
+        output_list.delete(1.0, "end")  # Usuwamy stare wyniki z listy
+
+        for widget in output_frame.winfo_children():
+            if str(widget) != str(output_list):
+                widget.destroy()
 
         if not results:
             output_list.insert("end", "Brak wyników.\n")
             return
 
-        for i, (title, link) in enumerate(results, start=1): #iteracja przez liste wynikow
+        for i, (title, link) in enumerate(results, start=1):
             output_list.insert("end", f"{i}. {title}\n{link}\n\n")
 
             button = tk.Button(output_frame, text=f"Zobacz {title}", command=lambda url=link: showImageFromUrl(url))
             button.pack(padx=5, pady=5)
 
-        text_log.insert("end", f"Sukces, pobrano {query}")
+        text_log.insert("end", f"Sukces, pobrano {query}\n")
 
     except Exception as e:
         text_log.insert("end", f"Blad: {e}\n")

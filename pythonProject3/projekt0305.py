@@ -109,3 +109,4 @@ output_list = tk.Text(output_frame, width=60, height=15)
 output_list.pack(fill="both", expand=True) #pole tekstowe rozszerza sie na cale miejsce w ramce
 
 root.mainloop()
+
